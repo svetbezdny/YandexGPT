@@ -39,11 +39,9 @@ def get_answer(query: str, mode: str = "yandexgpt-lite") -> None:
         params=data,
         data=json_data,
     )
+    result_ = web.json()
     try:
-        result = web.json()["result"]["alternatives"][0]["message"]["text"]
+        result = result_["result"]["alternatives"][0]["message"]["text"]
     except:
-        result = {
-            "Code": web.json()["error"]["httpCode"],
-            "Text": web.json()["error"]["message"],
-        }
+        result = f'{result_["error"]["httpCode"]}. {result_["error"]["message"]}'
     print(result)
